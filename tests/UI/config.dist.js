@@ -35,7 +35,7 @@ exports.mocha = 'mocha-3.2.0';
 /**
  * The folder in tests/lib that holds chai.
  */
-exports.chai = 'chai-1.9.0';
+exports.chai = 'chai-2.3.0';
 
 /**
  * The mocha reporter to use.
