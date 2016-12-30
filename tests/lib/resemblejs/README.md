@@ -1,7 +1,7 @@
 Resemble.js
 ==========
 
-Analyse and compare images with Javascript and HTML5. [Resemble.js Demo](http://huddle.github.com/Resemble.js/)
+Analyse and compare images with Javascript and HTML5. [More info & Resemble.js Demo](http://huddle.github.com/Resemble.js/). If you need NodeJS support, take a look at [node-resemble](https://github.com/ddo/node-resemble)
 
 ![Two image diff examples side-by-side, one pink, one yellow.](https://raw.github.com/Huddle/Resemble.js/master/demoassets/readmeimage.jpg "Visual image comparison")
 
@@ -45,6 +45,12 @@ var diff = resemble(file).compareTo(file2).ignoreColors().onComplete(function(da
 });
 ```
 
+Scale second image to dimensions of the first one:
+```javascript
+//diff.useOriginalSize();
+diff.scaleToSameSize();
+```
+
 You can also change the comparison method after the first analysis.
 
 ```javascript
@@ -52,6 +58,7 @@ You can also change the comparison method after the first analysis.
 // diff.ignoreColors();
 diff.ignoreAntialiasing();
 ```
+
 
 And change the output display style.
 
@@ -63,10 +70,19 @@ resemble.outputSettings({
     blue: 255
   },
   errorType: 'movement',
-  transparency: 0.3
+  transparency: 0.3,
+  largeImageThreshold: 1200,
+  useCrossOrigin: false
 });
 // resembleControl.repaint();
 ```
+
+By default, the comparison algorithm skips pixels when the image width or height is larger than 1200 pixels. This is there to mitigate performance issues.
+
+You can switch this modify this behaviour by setting the `largeImageThreshold` option to a different value. Set it to **0** to switch it off completely.
+
+`useCrossOrigin` is true by default, you might need to set it to false if you're using [Data URIs](https://developer.mozilla.org/en-US/docs/Web/HTTP/Basics_of_HTTP/Data_URIs).
+
 
 --------------------------------------
 
