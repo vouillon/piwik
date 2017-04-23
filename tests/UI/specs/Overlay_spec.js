@@ -73,6 +73,7 @@ describe("Overlay", function () {
             var pos = page.webpage.evaluate(function () {
                 var iframe = $('iframe'),
                     innerOffset = $('.dropdown-toggle', iframe.contents()).offset();
+                console.log($('.dropdown-toggle', iframe.contents()));
                 return {
                     x: iframe.offset().left + innerOffset.left + 32, // position is incorrect for some reason w/o adding pixels
                     y: iframe.offset().top + innerOffset.top
