@@ -70,16 +70,11 @@ describe("Overlay", function () {
 
     it("should show stats for new links when dropdown opened", function (done) {
         expect.screenshot("page_new_links").to.be.capture(function (page) {
-            var pos = page.webpage.evaluate(function () {
-                var iframe = $('iframe'),
-                    innerOffset = $('.dropdown-toggle', iframe.contents()).offset();
-                console.log($('.dropdown-toggle', iframe.contents()));
-                return {
-                    x: iframe.offset().left + innerOffset.left + 32, // position is incorrect for some reason w/o adding pixels
-                    y: iframe.offset().top + innerOffset.top
-                };
+            page.wait(1000);
+            page.evaluate(function () {
+                var iframe = $('iframe');
+                $('.dropdown-toggle', iframe.contents()).click();
             });
-            page.sendMouseEvent('click', pos);
             page.wait(2000);
 
             removeOptOutIframe(page);
