@@ -70,10 +70,26 @@ describe("Overlay", function () {
 
     it("should show stats for new links when dropdown opened", function (done) {
         expect.screenshot("page_new_links").to.be.capture(function (page) {
-            page.wait(1000);
+            var pos = page.webpage.evaluate(function () {
+                var iframe = $('iframe'),
+                    innerOffset = $('.dropdown-toggle', iframe.contents()).offset();
+                return {
+                    x: iframe.offset().left + innerOffset.left,
+                    y: iframe.offset().top + innerOffset.top
+                };
+            });
             page.evaluate(function () {
-                var iframe = $('iframe');
-                $('.dropdown-toggle', iframe.contents()).click();
+                var ev = new MouseEvent('click', {
+                    'view': window,
+                    'bubbles': true,
+                    'cancelable': true,
+                    'screenX': pos.x,
+                    'screenY': pos.y
+                });
+
+                var el = document.elementFromPoint(pos.x, pos.y);
+
+                el.dispatchEvent(ev);
             });
             page.wait(2000);
 
